@@ -5,8 +5,6 @@ app = Flask(__name__)
 
 prefix = "/api/v1"
 
-print '{}/user/oauth/authorize'.format(prefix)
-
 @app.route('{}/user/oauth/authorize'.format(prefix), methods=['POST'])
 def authorize():
   return jsonify({
