@@ -4,6 +4,7 @@ from flask import jsonify
 app = Flask(__name__)
 
 prefix = "/api/v1"
+print '{}/paymethods'.format(prefix)
 
 @app.route('{}/user/oauth/authorize'.format(prefix), methods=['POST'])
 def authorize():
@@ -32,6 +33,7 @@ def pay():
     } 
   )
 
+
 @app.route('{}/paymethods'.format(prefix), methods=['GET'])
 def get_pay_methods():
   return jsonify({
@@ -48,3 +50,7 @@ def get_pay_methods():
       }
     ]
   })
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=9999, debug=True)
+
