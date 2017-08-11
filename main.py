@@ -3,10 +3,6 @@ from flask import jsonify
 
 app = Flask(__name__)
 
-import os
-port = int(os.environ.get('PORT', 5000)) 
-print 'running on port {}'.format(port)
-
 prefix = "/api/v1"
 
 @app.route('{}/user/oauth/authorize'.format(prefix), methods=['POST'])
@@ -55,5 +51,5 @@ def get_pay_methods():
   })
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=port, debug=True)
+    app.run(debug=True)
 
