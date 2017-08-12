@@ -2,6 +2,8 @@
 
 API para procesamiento de pagos electronicos
 
+Heroku dyno: https://shielded-escarpment-27661.herokuapp.com
+
 ## Endpoints:
 
 ### Generación de token
