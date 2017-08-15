@@ -1,54 +1,27 @@
 from flask import Flask
-from flask import jsonify
+from flask import request
+from flask_sqlalchemy import SQLAlchemy
+from models.model import postgresql
+from models.token import Token
+from flask_restful import Resource, Api
+import os
+from resources.authorization import Authorization
+from resources.paymethod import PayMethod
+from resources.pay import Pay
 
 app = Flask(__name__)
+api = Api(app)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 prefix = "/api/v1"
 
-@app.route('{}/user/oauth/authorize'.format(prefix), methods=['POST'])
-def authorize():
-  return jsonify({
-      "access_token":"7524f96e-2d22-45da-bc64-778a61cbfc26",
-      "token_type":"bearer",
-      "expires_in":43199,
-      "grant_type":"client_credentials"
-    } 
-  )
+api.add_resource(Authorization, '{}/user/oauth/authorize'.format(prefix))
+api.add_resource(PayMethod, '{}/paymethods'.format(prefix))
+api.add_resource(Pay, '{}/pays'.format(prefix))
 
-@app.route('{}/pay'.format(prefix), methods=['POST'])
-def pay():
-  return jsonify({
-      "transaction-id": "550e8400-e29b-41d4-a716-446655440000",
-      "paymentMethod": {
-          "card": {
-           "number": "484848484848484",
-           "type": "visa",
-           "expirationMonth": "11",
-           "expirationYear": "20",
-        }
-      },
-      "currency": "USD",
-      "value": "65.00"
-    } 
-  )
-
-
-@app.route('{}/paymethods'.format(prefix), methods=['GET'])
-def get_pay_methods():
-  return jsonify({
-  "items": [
-      {
-        "paymethod": "card",
-        "parameters": {
-          "number": "string",
-          "type": "string",
-          "expirationMonth": "number",
-          "expirationYear": "number",
-          "ccvv": "number"
-        }
-      }
-    ]
-  })
+postgresql.init_app(app)
 
 if __name__ == "__main__":
     app.run(debug=True)
