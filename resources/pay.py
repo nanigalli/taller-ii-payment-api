@@ -1,19 +1,8 @@
 from flask_restful import Resource
 from flask import jsonify, make_response, request
 import uuid
-from models.token import Token
+from auth import auth, InvalidAuthTypeException, InvalidTokenException
 
-
-class InvalidAuthTypeException(Exception):
-  pass
-class InvalidTokenException(Exception):
-  pass
-
-def auth(authtype, token):
-  if (authtype != "Bearer" and authtype != "bearer"):
-    raise InvalidAuthTypeException("Authorization type must be bearer!")
-  if ( not Token.exists(token)):
-    raise InvalidTokenException("Invalid authorization token!")  
 
 class Pay(Resource):
   def post(self):

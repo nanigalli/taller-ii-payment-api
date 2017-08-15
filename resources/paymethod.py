@@ -1,12 +1,16 @@
 from flask_restful import Resource
-from flask import jsonify, make_response
+from flask import jsonify, make_response, request
+from auth import auth, InvalidAuthTypeException, InvalidTokenException
 
 
 class PayMethod(Resource):
   def get(self):
-    return make_response(
-      jsonify({
-      "items": [
+    authtype, token = request.headers.get('Authorization').split()
+    try:
+      auth(authtype, token)
+      return make_response(
+        jsonify({
+        "items": [
           {
             "paymethod": "card",
             "parameters": {
@@ -20,4 +24,10 @@ class PayMethod(Resource):
         ]
       })
     )
-
+    except (InvalidAuthTypeException, InvalidTokenException) as e:
+      return make_response(jsonify(
+        {
+          "status_code": 403,
+          "message": e.message
+        }
+      ))
