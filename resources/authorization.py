@@ -3,14 +3,23 @@ from flask import request
 from models.token import Token
 from flask import jsonify, make_response
 
-class Authorization(Resource):
+class AuthorizationResource(Resource):
 
   def post(self):
-    client_id = request.get_json()['client_id']
-    client_secret = request.get_json()['client_secret']
-    token = Token.create(client_id, client_secret)
-    if (token):
-      return make_response(
+    client_id = self._get_client_id_from_request()
+    client_secret = self._get_client_secret_from_request()
+    return self._create_access_token_response(Token.create(client_id, client_secret))
+
+  def _get_client_id_from_request(self):
+    return request.get_json()['client_id']
+
+  def _get_client_secret_from_request(self):
+    return request.get_json()['client_secret']
+
+  def _create_access_token_response(self, token):
+    response = None
+    try:
+      response = make_response(
         jsonify(
           {
             "access_token": token.access_token,
@@ -20,9 +29,9 @@ class Authorization(Resource):
           }
         ), 201
       )
-    else:
+    except:
       status_code = 403
-      return make_response(
+      response = make_response(
         jsonify(
           {
             "status_code": status_code,
@@ -30,4 +39,4 @@ class Authorization(Resource):
           }
         ), status_code
       )
-
+    return response
