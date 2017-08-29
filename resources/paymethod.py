@@ -5,8 +5,8 @@ from auth import auth, InvalidAuthTypeException, InvalidTokenException
 
 class PayMethod(Resource):
   def get(self):
-    authtype, token = request.headers.get('Authorization').split()
     try:
+      authtype, token = request.headers.get('Authorization').split()
       auth(authtype, token)
       return make_response(
         jsonify({
