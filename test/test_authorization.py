@@ -2,7 +2,6 @@ from resources.authorization import AuthorizationResource
 from models.token import Token
 import mock 
 import unittest
-from flask import Flask, jsonify
 from mocks.authorization_response import authorization_response
 from mocks.token_create_mock import token_creation_mock
 
