@@ -41,7 +41,6 @@ class Token(postgresql.Model):
           curr_session.commit() #commit changes
         return token
     except Exception as e:
-        print e
         curr_session.rollback()
         curr_session.flush() # for resetting non-commited .add()
         return None

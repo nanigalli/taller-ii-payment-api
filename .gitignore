@@ -3,3 +3,4 @@ env/
 .cache/*
 .coverage
 htmlcov/*
+/test/.cache
