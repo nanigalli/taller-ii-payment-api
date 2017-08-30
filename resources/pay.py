@@ -1,14 +1,14 @@
 from flask_restful import Resource
 from flask import jsonify, make_response, request
 import uuid
-from auth import auth, InvalidAuthTypeException, InvalidTokenException
+from auth import Authorization, InvalidAuthTypeException, InvalidTokenException
 
 
 class Pay(Resource):
   def post(self):
     authtype, token = request.headers.get('Authorization').split()
     try:
-      auth(authtype, token)
+      Authorization.auth(authtype, token)
       transaction_id = str(uuid.uuid4())
       return make_response(
         jsonify(
