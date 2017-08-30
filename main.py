@@ -6,7 +6,7 @@ from models.token import Token
 from flask_restful import Resource, Api
 import os
 from resources.authorization import AuthorizationResource
-from resources.paymethod import PayMethod
+from resources.paymethod import PayMethodResource
 from resources.pay import Pay
 
 app = Flask(__name__)
@@ -18,7 +18,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 prefix = "/api/v1"
 
 api.add_resource(AuthorizationResource, '{}/user/oauth/authorize'.format(prefix))
-api.add_resource(PayMethod, '{}/paymethods'.format(prefix))
+api.add_resource(PayMethodResource, '{}/paymethods'.format(prefix))
 api.add_resource(Pay, '{}/pays'.format(prefix))
 
 postgresql.init_app(app)
