@@ -1,5 +1,6 @@
 # Taller II Payment API
 [![Build Status](https://travis-ci.org/gfusca/taller-ii-payment-api.svg?branch=master)](https://travis-ci.org/gfusca/taller-ii-payment-api)
+[![codecov](https://codecov.io/gh/gfusca/taller-ii-payment-api/branch/master/graph/badge.svg)](https://codecov.io/gh/gfusca/taller-ii-payment-api)
 
 API para procesamiento de pagos electronicos
 
