@@ -59,15 +59,14 @@ Response:
 ```
 curl -X POST http://<api_url>/api/v1/pay
     -H "Authorization: Bearer 87ad751f-7ea5-4023-a16f-04b6647a07f5"
-    -d '{ 
+    -d '{
+        "transaction-id": null,
         "paymentMethod": {
-        "card": {
-          "number": "484848484848484",
-          "type": "visa",
-          "expirationMonth": "11",
-          "expirationYear": "20",
-          "ccvv": "123"
-        }
+            "method": "card",
+            "number": "484848484848484",
+            "type": "visa",
+            "expirationMonth": "11",
+            "expirationYear": "20",
         },
         "currency": "USD",
         "value": "65.00"
@@ -80,15 +79,13 @@ Response:
 {
   "transaction-id": "550e8400-e29b-41d4-a716-446655440000",
   "paymentMethod": {
-      "card": {
-        "number": "484848484848484",
-        "type": "visa",
-        "expirationMonth": "11",
-        "expirationYear": "20",
-      }
-      },
-    "currency": "USD",
-    "value": "65.00"
-  }
+      "method": "card",
+      "number": "484848484848484",
+      "type": "visa",
+      "expirationMonth": "11",
+      "expirationYear": "20",
+  },
+  "currency": "USD",
+  "value": "65.00"
 }
 ```
